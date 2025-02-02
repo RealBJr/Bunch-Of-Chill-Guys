@@ -13,15 +13,15 @@ public:
     void draw(sf::RenderWindow &window);
 
     sf::Vector2f getPosition();
-    sf::Vector2f getSize();
+    float getRadius();
     void setPosition(float x, float y);
     float getRotation();
 
 private:
-    sf::RectangleShape shape; // Player rectangle
-    sf::Texture texture;      // Texture for the image
-    sf::Sprite sprite;        // Sprite for the image
-    float speed = 4.0f;       // Movement speed
+    sf::CircleShape shape; // Player rectangle
+    sf::Texture texture;   // Texture for the image
+    sf::Sprite sprite;     // Sprite for the image
+    float speed = 4.0f;    // Movement speed
 };
 
 #endif

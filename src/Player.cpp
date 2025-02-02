@@ -15,7 +15,7 @@ Player::Player(float x, float y, sf::Color color, const std::string &textureFile
     // sprite.setPosition(x, y);  // Set sprite position to (x, y)
 
     // Set up the rectangle shape
-    shape.setSize(sf::Vector2f(50.0f, 50.0f)); // Example size, adjust as needed
+    shape.setRadius(sprite.getGlobalBounds().width / 2); // Example size, adjust as needed
     shape.setFillColor(color);
     shape.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 }
@@ -48,17 +48,17 @@ void Player::update(sf::Keyboard::Key up, sf::Keyboard::Key down, sf::Keyboard::
     // Get the current window size for fullscreen boundaries
     sf::Vector2u windowSize = window.getSize();
     sf::Vector2f pos = shape.getPosition();
-    sf::Vector2f size = shape.getSize();
+    float size = shape.getRadius();
 
     // Ensure boundary conditions for fullscreen
     if (pos.x < 0)
         shape.setPosition(0, pos.y); // Left boundary
     if (pos.y < 0)
         shape.setPosition(pos.x, 0); // Top boundary
-    if (pos.x + size.x > windowSize.x)
-        shape.setPosition(windowSize.x - size.x, pos.y); // Right boundary
-    if (pos.y + size.y > windowSize.y)
-        shape.setPosition(pos.x, windowSize.y - size.y); // Bottom boundary
+    if (pos.x + size > windowSize.x)
+        shape.setPosition(windowSize.x - size, pos.y); // Right boundary
+    if (pos.y + size > windowSize.y)
+        shape.setPosition(pos.x, windowSize.y - size); // Bottom boundary
 }
 
 void Player::draw(sf::RenderWindow &window)
@@ -75,9 +75,9 @@ sf::Vector2f Player::getPosition()
     return shape.getPosition();
 }
 
-sf::Vector2f Player::getSize()
+float Player::getRadius()
 {
-    return shape.getSize();
+    return shape.getRadius();
 }
 
 float Player::getRotation()

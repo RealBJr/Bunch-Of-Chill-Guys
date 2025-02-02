@@ -13,8 +13,8 @@ Game::Game()
     view.setCenter(400, 300);
     window.setView(view);
 
-    player2.setPosition(window.getSize().x - player2.getSize().x - 20, window.getSize().y / 2 - player2.getSize().y / 2);
-    player1.setPosition(20, window.getSize().y / 2 - player1.getSize().y / 2);
+    player2.setPosition(window.getSize().x - player2.getRadius() - 20, window.getSize().y / 2 - player2.getRadius() / 2);
+    player1.setPosition(20, window.getSize().y / 2 - player1.getRotation() / 2);
 
     if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
     {
@@ -50,8 +50,8 @@ void Game::processEvents()
             handleResize(event.size.width, event.size.height);
 
             // Adjust players to stay near the edges
-            player1.setPosition(20, window.getSize().y / 2 - player1.getSize().y / 2);                                            // Slightly from the left edge, vertically centered
-            player2.setPosition(window.getSize().x - player2.getSize().x - 20, window.getSize().y / 2 - player2.getSize().y / 2); // Slightly from the right edge, vertically centered
+            player1.setPosition(20, window.getSize().y / 2 - player1.getRadius() / 2);                                            // Slightly from the left edge, vertically centered
+            player2.setPosition(window.getSize().x - player2.getRadius() - 20, window.getSize().y / 2 - player2.getRadius() / 2); // Slightly from the right edge, vertically centered
 
             // Adjust controls text position when resizing
             controlsText.setPosition(10, window.getSize().y - 20);
@@ -128,7 +128,7 @@ void Game::shoot(Player &player)
     float dirY = std::sin(radians);
 
     // Calculate the bullet's initial position (offset from the player's center)
-    float offset = player.getSize().x / 2; // Offset by half the player's width
+    float offset = player.getRadius() / 2; // Offset by half the player's width
     float bulletX = player.getPosition().x + dirX * offset;
     float bulletY = player.getPosition().y + dirY * offset;
 
